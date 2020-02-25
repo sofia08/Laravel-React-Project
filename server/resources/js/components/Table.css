@@ -1,0 +1,17 @@
+.table {
+    text-align: center;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    /* border-collapse: collapse;
+    border: 3px solid #ddd;
+    width: 40%; */
+}
+
+.table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+/* .table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+} */
