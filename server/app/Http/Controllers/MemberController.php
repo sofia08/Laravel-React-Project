@@ -14,7 +14,7 @@ class MemberController extends Controller {
         return response()->json(
             Member::where('firstname', 'like', $query)
                 ->orWhere('surname', 'like', $query)
-                ->orWhere('surname', 'like', $query)
+                ->orWhere('email', 'like', $query)
                 ->take(10)->get()
         );
     }
