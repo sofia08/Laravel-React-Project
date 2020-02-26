@@ -14,3 +14,4 @@ use Illuminate\Http\Request;
 */
 
 Route::match(['GET', 'POST'], '/member', 'MemberController@filter');
+

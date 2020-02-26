@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Table.css'
+import Pagination from './Pagination';
 
 export default class Table extends Component {
 
@@ -7,14 +8,16 @@ export default class Table extends Component {
         super(props);
         this.state= {
             filterValue:'',
+            pageCount: 0,
+            currentPage: 1,
             members: []
         }
 
-        this.retrieveMembers('')
-            .then(data => this.setState({
-                ...this.state,
-                members: data
-            }));
+        // Bind the methods
+        this.retrieveMembers = this.retrieveMembers.bind(this);
+        
+        // Get the initial state of members and page count
+        this.retrieveMembers('', 1);
     }
 
     fetchTable() {
@@ -36,22 +39,37 @@ export default class Table extends Component {
     filterMembers(event) {
         this.setState({
             ...this.state,
-            filterValue: event.target.value
+            filterValue: event.target.value,
+            page: 1
         });
 
-        this.retrieveMembers(event.target.value)
-            .then(data => this.setState({
-                ...this.state,
-                members: data
-            }));
+        this.retrieveMembers(event.target.value, 1)
+   
     }
 
-    retrieveMembers(query) {
+    retrieveMembers(query, page) {
         let formData = new FormData();
         formData.append('query', query);
+        formData.append('page', page);
 
-        return fetch('/api/member', {body: formData, method: "POST"})
-                .then(response => response.json());
+         fetch('/api/member', {body: formData, method: "POST"})
+            .then(response => response.json())
+            .then(data => this.setState({
+                ...this.state,
+                members: data.members,
+                currentPage: page,
+                pageCount:data.pageCount
+            })).catch(err => console.error('You are most likely being rate-limited'));
+    }
+
+    updatePage(page) {
+        if (page < 1 || page > this.state.pageCount) {
+            console.error('Attempting to navigate to invalid page');
+            return;
+          }
+
+          // Fetch the new page from server
+          this.retrieveMembers(this.state.filterValue, page);
     }
 
     render() {
@@ -79,6 +97,10 @@ export default class Table extends Component {
                         {this.fetchTable()}
                     </tbody>
                 </table>
+
+                <Pagination updatePage={this.updatePage.bind(this)} 
+                    currentPage={this.state.currentPage} 
+                    pageCount={this.state.pageCount}/>
             </div>
         )
     }

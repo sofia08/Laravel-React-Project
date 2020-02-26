@@ -1960,7 +1960,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.filter-input {\n    margin: 10px;\n}", ""]);
+exports.push([module.i, "", ""]);
 
 // exports
 
@@ -51891,6 +51891,160 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_
 
 /***/ }),
 
+/***/ "./resources/js/components/Pagination.js":
+/*!***********************************************!*\
+  !*** ./resources/js/components/Pagination.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Pagination; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var Pagination =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Pagination, _Component);
+
+  function Pagination(props) {
+    var _this;
+
+    _classCallCheck(this, Pagination);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Pagination).call(this, props));
+    _this.buildNavItem = _this.buildNavItem.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Pagination, [{
+    key: "buildNavItem",
+    value: function buildNavItem(text, pageAction) {
+      var _this2 = this;
+
+      var action = function action(e) {
+        _this2.props.updatePage(pageAction);
+
+        e.preventDefault();
+      };
+
+      var state = ''; // Style it based on state
+
+      if (pageAction == 0 || pageAction > this.props.pageCount) {
+        // Disable
+        state = 'disabled';
+      } else if (pageAction == this.props.currentPage) {
+        state = 'active';
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        key: pageAction,
+        className: "page-item ".concat(state)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "page-link",
+        href: "#",
+        onClick: action
+      }, text));
+    }
+    /**
+     * Returns the list of numbers that appear between the Previous and Next buttons
+     * 
+     * @param {*} page the current page
+     * @param {*} count of all pages
+     */
+
+  }, {
+    key: "buildNavList",
+    value: function buildNavList(page, count) {
+      var nav = []; // The number of items we want on each side of the current page
+
+      var navItems = 2;
+      var totalItems = navItems * 2; // Calculate the first and last item we want in the list
+
+      var start = page - navItems;
+      var end = page + navItems; // If we are trying to build a list that is before the first page
+
+      if (start < 1) {
+        // We will start at the first page, and build the total number of items required
+        start = 1;
+        end = totalItems + 1;
+      } else if (end > count) {
+        // If we are trying to build a list that will run after the final page
+        // Start from the total number of pages - the items we want in the list
+        start = count - totalItems; // The final item will be the last page
+
+        end = count;
+      }
+
+      for (var i = start; i <= end; i++) {
+        // If the item is outside of normal bounds
+        if (i < 1 || i > count) {
+          continue;
+        }
+
+        nav.push(this.buildNavItem(i, i));
+      }
+
+      return nav;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "pagination justify-content-center"
+      }, this.buildNavItem('Previous', this.props.currentPage - 1), this.buildNavList(this.props.currentPage, this.props.pageCount), this.buildNavItem('Next', this.props.currentPage + 1)));
+    }
+  }]);
+
+  return Pagination;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]); // render() {
+//     return (
+//         <nav>
+//             <ul className='pagination'>
+//                 {this.item('Previous', () => this.state.updatePage(this.state.currentPage - 1))}
+//                 {this.item(1, () => this.state.updatePage(1))}
+//                 {this.item('Next', () => this.state.updatePage(this.state.currentPage + 1))}
+//             </ul>
+//         </nav>
+//     );
+// }
+// item(text, action) {
+//     // Change the class names based on currentPage
+//     // Highlight the current page
+//     // Disable previous and next based on current page
+//     return (
+//             <li className="page-item">
+//                 <a className="page-link" href="#" onClick={action}>{text}</a>
+//             </li>
+//         );
+// }
+
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Table.css":
 /*!*******************************************!*\
   !*** ./resources/js/components/Table.css ***!
@@ -51935,6 +52089,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Table_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Table.css */ "./resources/js/components/Table.css");
 /* harmony import */ var _Table_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_Table_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Pagination */ "./resources/js/components/Pagination.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -51951,13 +52106,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -51975,14 +52131,14 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Table).call(this, props));
     _this.state = {
       filterValue: '',
+      pageCount: 0,
+      currentPage: 1,
       members: []
-    };
+    }; // Bind the methods
 
-    _this.retrieveMembers('').then(function (data) {
-      return _this.setState(_objectSpread({}, _this.state, {
-        members: data
-      }));
-    });
+    _this.retrieveMembers = _this.retrieveMembers.bind(_assertThisInitialized(_this)); // Get the initial state of members and page count
+
+    _this.retrieveMembers('', 1);
 
     return _this;
   }
@@ -52005,28 +52161,45 @@ function (_Component) {
   }, {
     key: "filterMembers",
     value: function filterMembers(event) {
-      var _this2 = this;
-
       this.setState(_objectSpread({}, this.state, {
-        filterValue: event.target.value
+        filterValue: event.target.value,
+        page: 1
       }));
-      this.retrieveMembers(event.target.value).then(function (data) {
-        return _this2.setState(_objectSpread({}, _this2.state, {
-          members: data
-        }));
-      });
+      this.retrieveMembers(event.target.value, 1);
     }
   }, {
     key: "retrieveMembers",
-    value: function retrieveMembers(query) {
+    value: function retrieveMembers(query, page) {
+      var _this2 = this;
+
       var formData = new FormData();
       formData.append('query', query);
-      return fetch('/api/member', {
+      formData.append('page', page);
+      fetch('/api/member', {
         body: formData,
         method: "POST"
       }).then(function (response) {
         return response.json();
+      }).then(function (data) {
+        return _this2.setState(_objectSpread({}, _this2.state, {
+          members: data.members,
+          currentPage: page,
+          pageCount: data.pageCount
+        }));
+      })["catch"](function (err) {
+        return console.error('You are most likely being rate-limited');
       });
+    }
+  }, {
+    key: "updatePage",
+    value: function updatePage(page) {
+      if (page < 1 || page > this.state.pageCount) {
+        console.error('Attempting to navigate to invalid page');
+        return;
+      } // Fetch the new page from server
+
+
+      this.retrieveMembers(this.state.filterValue, page);
     }
   }, {
     key: "render",
@@ -52052,7 +52225,11 @@ function (_Component) {
         scope: "col"
       }, "Gender"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
         scope: "col"
-      }, "Joined Date"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.fetchTable())));
+      }, "Joined Date"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.fetchTable())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Pagination__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        updatePage: this.updatePage.bind(this),
+        currentPage: this.state.currentPage,
+        pageCount: this.state.pageCount
+      }));
     }
   }]);
 
