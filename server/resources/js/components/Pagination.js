@@ -4,7 +4,7 @@ import React, { Component } from "react";
 export default class Pagination extends Component {
     constructor(props) {
         super(props);
-        
+
         this.buildNavItem = this.buildNavItem.bind(this);
         }
 
@@ -88,28 +88,3 @@ export default class Pagination extends Component {
             );
           }
     }
-
-    // render() {
-    //     return (
-    //         <nav>
-    //             <ul className='pagination'>
-    //                 {this.item('Previous', () => this.state.updatePage(this.state.currentPage - 1))}
-    //                 {this.item(1, () => this.state.updatePage(1))}
-    //                 {this.item('Next', () => this.state.updatePage(this.state.currentPage + 1))}
-    //             </ul>
-    //         </nav>
-    //     );
-    // }
-
-    // item(text, action) {
-    //     // Change the class names based on currentPage
-
-    //     // Highlight the current page
-    //     // Disable previous and next based on current page
-
-    //     return (
-    //             <li className="page-item">
-    //                 <a className="page-link" href="#" onClick={action}>{text}</a>
-    //             </li>
-    //         );
-    // }
